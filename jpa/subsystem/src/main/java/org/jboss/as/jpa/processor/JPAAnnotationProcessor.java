@@ -36,6 +36,7 @@ import org.jboss.as.jpa.injectors.PersistenceContextInjectionSource;
 import org.jboss.as.jpa.injectors.PersistenceUnitInjectionSource;
 import org.jboss.as.jpa.messages.JpaLogger;
 import org.jboss.as.jpa.service.PersistenceUnitServiceImpl;
+import org.jboss.as.jpa.util.ImportsInspector;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
@@ -78,6 +79,8 @@ public class JPAAnnotationProcessor implements DeploymentUnitProcessor {
         final CompositeIndex index = deploymentUnit.getAttachment(org.jboss.as.server.deployment.Attachments.COMPOSITE_ANNOTATION_INDEX);
         final EEApplicationClasses applicationClasses = deploymentUnit.getAttachment(Attachments.EE_APPLICATION_CLASSES_DESCRIPTION);
 
+        ImportsInspector inspector;
+
         // @PersistenceContext
         List<AnnotationInstance> persistenceContexts = index.getAnnotations(PERSISTENCE_CONTEXT_ANNOTATION_NAME);
         // create binding and injection configurations out of the @PersistenceContext annotations
@@ -101,6 +104,9 @@ public class JPAAnnotationProcessor implements DeploymentUnitProcessor {
         if (!persistenceContexts.isEmpty() || !persistenceUnits.isEmpty() ||
                 !collectionPersistenceContexts.isEmpty() || !collectionPersistenceunits.isEmpty()) {
             JPADeploymentMarker.mark(deploymentUnit);
+        } else {
+            inspector = new ImportsInspector(index);
+            inspector.processImports();
         }
     }
 

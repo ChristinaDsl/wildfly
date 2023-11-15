@@ -74,8 +74,9 @@ public class MessageDrivenComponentDescriptionFactory extends EJBComponentDescri
     }
 
     private void processMessageBeans(final DeploymentUnit deploymentUnit, final Collection<AnnotationInstance> messageBeanAnnotations, final CompositeIndex compositeIndex) throws DeploymentUnitProcessingException {
-        if (messageBeanAnnotations.isEmpty())
+        if (messageBeanAnnotations.isEmpty()){
             return;
+        }
 
         final EjbJarDescription ejbJarDescription = getEjbJarDescription(deploymentUnit);
         final PropertyReplacer propertyReplacer = EJBAnnotationPropertyReplacement.propertyReplacer(deploymentUnit);

@@ -755,4 +755,7 @@ public interface JpaLogger extends BasicLogger {
     @Message(id = 75, value="Illegal to call this method from injected, managed EntityManager")
     IllegalStateException illegalCallOnCloseMethod();
 
+    @LogMessage(level = WARN)
+    @Message(id = 76, value="Deployment contains annotations of type javax.persistence")
+    void containsJavaxPersistenceImports();
 }

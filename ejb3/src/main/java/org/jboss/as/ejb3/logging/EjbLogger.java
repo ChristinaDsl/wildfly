@@ -3254,4 +3254,8 @@ public interface EjbLogger extends BasicLogger {
 
     @Message(id = 536, value = "Unsupported EJB receiver protocol %s")
     IllegalArgumentException unsupportedEJBReceiverProtocol(String uriScheme);
+
+    @LogMessage(level = WARN)
+    @Message(id = 537, value = "Deployment  contains annotations of type javax.ejb")
+    void containsJavaxEJBAnnotations();
 }

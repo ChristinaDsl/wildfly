@@ -14,6 +14,7 @@ import org.jboss.as.ee.structure.DeploymentTypeMarker;
 import org.jboss.as.ejb3.deployment.EjbDeploymentAttachmentKeys;
 import org.jboss.as.ejb3.deployment.EjbJarDescription;
 import org.jboss.as.ejb3.logging.EjbLogger;
+import org.jboss.as.ejb3.util.AnnotationsInspector;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -124,9 +125,13 @@ public class AnnotatedEJBComponentDescriptionDeploymentUnitProcessor implements 
     }
 
     private void processAnnotations(final DeploymentUnit deploymentUnit, final CompositeIndex compositeIndex) throws DeploymentUnitProcessingException {
+        AnnotationsInspector inspector = new AnnotationsInspector(compositeIndex);
+
         for (final EJBComponentDescriptionFactory factory : factories) {
             factory.processAnnotations(deploymentUnit, compositeIndex);
         }
+
+        inspector.processAnnotations();
     }
 
     private void processBeanMetaData(final DeploymentUnit deploymentUnit, final EnterpriseBeanMetaData ejb) throws DeploymentUnitProcessingException {
