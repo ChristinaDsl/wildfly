@@ -27,6 +27,7 @@ public abstract class EJBComponentDescriptionFactory {
      * the deployment, but do not actually install them
      */
     protected final boolean appclient;
+    protected boolean existEJB = false;
 
     protected EJBComponentDescriptionFactory(final boolean appclient) {
         this.appclient = appclient;
